@@ -1,0 +1,15 @@
+body {
+    padding: 10px;
+}
+
+#add{
+    background-color: green;
+    color: white;
+    border-radius: 15%;
+}
+#remove{
+    background-color: rgb(255, 72, 72);
+    color: white;
+    border-radius: 2%;
+}
+

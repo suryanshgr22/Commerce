@@ -1,0 +1,91 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing : {{listing.title}}</h2>
+    <div class="card mb-3">
+        <h5 class="card-title">Created by : {{listing.user}}</h5>
+        {% if listing.image != "" %}
+        <img src="{{listing.image}}" width="500px" height="500px" alt="...">
+        {% endif %}
+        <div class="card-body">
+          <p class="card-text">
+            <ul>
+                <li>Description: {{listing.description}} </li>
+                <li>Current Price : Rs.{{listing.starting_bid}}</li>
+                <li>Category : {% if listing.category != "" %} {{listing.category}} {% else %} Not Specified {% endif %} </li>
+          </ul></p>
+          <p class="card-text"><small class="text-body-secondary">Created on {{listing.datentime}}</small></p>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <ul>
+        {% if listing.user == request.user %}
+        <form action="{% url 'close' %} " method="POST">
+            {% csrf_token %}
+            <input type="text" hidden value={{listing.id}} name="ite">
+            <input type="submit" value="Close" id="close">
+        </form>
+        {% elif listing.active == False and bids.user == request.user %}
+            <h2>You are the winner</h2>
+        {% else %}
+            Total bids : {{bids.count}}, {% if bids.user == request.user %}
+            Your bid is the current bid
+            {% endif %}
+            <form action="{% url 'bid' %} " method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Rs.</span>
+                    <input type="text" class="form-control" name="price" placeholder="Bid">
+                    <span class="input-group-text">.00</span>
+                </div>
+                <input type="text" hidden value={{listing.id}} name="item" >
+                <input type="submit" value="Bid" id="bid">
+            </form>
+        {% endif %}
+        <br>
+        {% if listing.user != request.user %}
+        {% if listing in watchlist %}
+        
+            <form action="{% url 'notwatch' %} " method="POST">
+                {% csrf_token %}
+                <input type="text" hidden value={{listing.id}} name="item">
+                <input type="submit" value="Remove from Watchlist" id="remove">
+            </form>
+        
+
+        {% else %}
+        
+            <form action="{% url 'watch' %} " method="POST">
+                {% csrf_token %}
+                <input type="text" hidden value={{listing.id}} name="item">
+                <input type="submit" value="Add to Watchlist" id="add">
+            </form>
+        
+        
+        {% endif %}
+        {% endif %}
+        <br>
+        <form action="{% url 'comment' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="item" hidden value={{listing.id}}>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" class="form-control" name="comment" placeholder="Comment">
+            </div>
+            <input type="submit" value="Post" id="comment">
+        </form>
+    </ul>
+    {% endif %}
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Comments
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for comment in comments %}
+          <li class="list-group-item"><strong>{{comment.user}}</strong> {{comment.comment}}</li>
+            {% endfor %}
+        </ul>
+      </div>
+    
+{% endblock %}
