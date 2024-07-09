@@ -1,29 +1,36 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Listing : {{listing.title}}</h2>
-    <div class="card mb-3">
-        <h5 class="card-title">Created by : {{listing.user}}</h5>
+{% load static %}
+    <div id="heading" style=" position:static; display: flexbox; background-color: #F7CD46 ; padding:3px; margin-bottom: 10px; width: 100%; margin-top: 10px;" >
+        <h2 style="color: #ffffff; text-align: center; font-family:monospace; font-size:30px; font-weight: bolder;" >Listing : {{listing.title}}</h2>
+    </div>
+    <div><h5 style="color: #F7CD46;" ><u style="color: #FD4755;" >Created by :</u>  {{listing.user}}</h5></div>
+    <div style="display: flex; justify-content: center; padding: 5px;" >
+        
         {% if listing.image != "" %}
-        <img src="{{listing.image}}" width="500px" height="500px" alt="...">
+        <img src="{{listing.image}}" width="550px" height="450px" alt="...">
+        {% else %}
+        <img src="{% static 'auctions/logo.png' %}" class="img-fluid rounded-start" width="500px" height="500px" style="opacity: 0.25;" >
         {% endif %}
         <div class="card-body">
           <p class="card-text">
             <ul>
-                <li>Description: {{listing.description}} </li>
-                <li>Current Price : Rs.{{listing.starting_bid}}</li>
-                <li>Category : {% if listing.category != "" %} {{listing.category}} {% else %} Not Specified {% endif %} </li>
+                <li><b>Description :</b> {{listing.description}} </li>
+                <li><b>Current Price :</b> &#x20B9;{{listing.starting_bid}}</li>
+                <li><b>Category :</b> {% if listing.category != "" %} {{listing.category}} {% else %} Not Specified {% endif %} </li>
           </ul></p>
-          <p class="card-text"><small class="text-body-secondary">Created on {{listing.datentime}}</small></p>
+          <p class="card-text"><small class="text-body-secondary" style="color: #5AC3B0;" >Created on {{listing.datentime}}</small></p>
         </div>
     </div>
+    <br>
     {% if user.is_authenticated %}
     <ul>
         {% if listing.user == request.user %}
         <form action="{% url 'close' %} " method="POST">
             {% csrf_token %}
             <input type="text" hidden value={{listing.id}} name="ite">
-            <input type="submit" value="Close" id="close">
+            <input type="submit" value="Close" style="background-color: #F7CD46; border: #FD4755 solid 1px;"  id="close">
         </form>
         {% elif listing.active == False and bids.user == request.user %}
             <h2>You are the winner</h2>
@@ -77,13 +84,13 @@
     </ul>
     {% endif %}
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: auto;">
         <div class="card-header">
           Comments
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" >
             {% for comment in comments %}
-          <li class="list-group-item"><strong>{{comment.user}}</strong> {{comment.comment}}</li>
+          <li class="list-group-item"><div style="display: flex; border: black solid 1px; justify-content:left; border-radius: 12px; " ><div style="color: #FD4755; background-color: #F7CD46; border-right: black solid 1px; margin-right: 2px; padding: 2px; border-top-left-radius: 12px; border-bottom-left-radius: 12px;" >{{comment.user}} </div><div style="padding: 2px;">{{comment.comment}}</div></div></li>
             {% endfor %}
         </ul>
       </div>

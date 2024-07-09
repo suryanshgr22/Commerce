@@ -1,21 +1,29 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-
+{% load static %}
+<div id="heading" style=" position:static; display: flexbox; background-color: #F7CD46 ; padding:3px; margin-bottom: 10px; width: 100%; margin-top: 10px;" >
+    <h2 style="color: #ffffff; text-align: center; font-family:monospace; font-size:40px; font-weight: bolder;" >Active Listings</h2>
+</div>
+  <br>
+  <div style="display: flex; width: 100%; justify-content:center;" >
+    <div class="scroll" >
     {% for listing in listings %}
-    <a href="{% url 'listing' listing.id %} ">
+    <a href="{% url 'listing' listing.id %} " style="text-decoration: none;" >
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
             {% if listing.image != "" %}
-            <img src="{{listing.image}}" class="img-fluid rounded-start" alt="...">
+            <img src="{{listing.image}}" class="img-fluid rounded-start"  alt="Unable to fetch image!">
+            {% else %}
+            <img src="{% static 'auctions/logo.png' %}" class="img-fluid rounded-start" style="opacity: 0.25;" >
             {% endif %}
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{listing.title}}</h5>
-              <p class="card-text">{{listing.description}}, Current Price : Rs.{{listing.starting_bid}} </p>
+              <h5 class="card-title" style="color: #FD4755; font-weight: bolder; text-decoration: underline;" >{{listing.title}}</h5>
+              <p class="card-text" style="color:#F7CD46;" ><b style="color: #000000;" >Description :</b>  {{listing.description}} </p>
+              <p class="card-text" style="color:#5AC3B0;" ><b style="color: #000000;" >Current Price :</b>   &#x20B9;{{listing.starting_bid}} </p>
               <p class="card-text"><small class="text-body-secondary">{{listing.datentime}}</small></p>
             </div>
           </div>
@@ -23,4 +31,6 @@
       </div>
     </a>
       {% endfor %}
+    </div>
+  </div>
 {% endblock %}

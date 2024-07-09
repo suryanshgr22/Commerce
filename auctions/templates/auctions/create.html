@@ -1,13 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Create Listing</h2>
+<div id="heading" style=" position:static; display: flexbox; background-color: #F7CD46 ; padding:3px; margin-bottom: 10px; width: 100%; margin-top: 10px;" >
+    <h2 style="color: #ffffff; text-align: center; font-family:monospace; font-size:40px; font-weight: bolder;" >Create Listings</h2>
+</div>
     <form action="{% url 'create' %} " method="post">
         {% csrf_token %}
-        <input type="text" placeholder="Title" name="title" required>
-        <input type="text" placeholder="Description" name="desc" required>
-        <input type="text" placeholder="Starting Bid" name="minbid" required>
-        <input type="text" placeholder="Image URL" name="img">
+        <!-- <input type="text" placeholder="Title" name="title" required> -->
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Title *</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Title" name="title" required>
+        </div>
+        <!-- <input type="text" placeholder="Description" name="desc" required> -->
+        <div class="input-group">
+            <span class="input-group-text">Description *</span>
+            <textarea class="form-control" aria-label="With textarea" placeholder="Description" name="desc" required ></textarea>
+        </div><br>
+        <!-- <input type="text" placeholder="Starting Bid" name="minbid" required> -->
+        <div class="input-group mb-3">
+            <span class="input-group-text">Min Bid *</span>
+            <span class="input-group-text"> &#x20B9;</span>
+            <input type="text" class="form-control" placeholder="Starting Bid" name="minbid" required aria-label="Dollar amount (with dot and two decimal places)">
+          </div>
+        <!-- <input type="text" placeholder="Image URL" name="img"> -->
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Image URL" name="img">
+        </div>
         Category :
         <select name="cat">
             <option value="" selected></option>
@@ -15,6 +34,6 @@
             <option value="{{item}}">{{item}}</option>
             {% endfor %}
         </select>
-        <input type="submit" Value="Create">
+        <input type="submit" Value="Create" class="btn btn-warning" style="color: #ffffff;">
     </form>
 {% endblock %}

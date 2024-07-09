@@ -2,7 +2,9 @@
 
 {% block body %}
 
-    <h2>Register</h2>
+<div id="heading" style=" position:static; display: flexbox; background-color: #F7CD46 ; padding:3px; margin-bottom: 10px; width: 100%; margin-top: 10px;" >
+    <h2 style="color: #ffffff; text-align: center; font-family:monospace; font-size:40px; font-weight: bolder;" >Register</h2>
+</div>
 
     {% if message %}
         <div>{{ message }}</div>
@@ -10,21 +12,29 @@
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
+        <!-- <div class="form-group">
             <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+        </div> -->
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Username" name="username" required aria-label="Username" aria-describedby="basic-addon1">
         </div>
-        <div class="form-group">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Email</span>
             <input class="form-control" type="email" name="email" placeholder="Email Address">
         </div>
-        <div class="form-group">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">*</span>
             <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <div class="form-group">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Confirm *</span>
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+<br>
+    Already have an account? <a href="{% url 'login' %}" style="text-decoration: none; color: #DE5935;"  >Log In here.</a>
 
 {% endblock %}

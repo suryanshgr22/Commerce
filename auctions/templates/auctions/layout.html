@@ -7,6 +7,24 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
         <style>
+            body{
+                background: rgb(255,255,255);
+background: linear-gradient(130deg, rgba(255,255,255,1) 18%, rgba(228,228,228,1) 48%, rgba(255,255,255,1) 78%);
+            }
+            
+            /* div.scroll {
+            background-color:inherit;
+            width: 600px;
+            height: 630px;
+            border: black solid 1px;
+            border-radius: 15px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            text-align: center;
+            padding: 20px;
+            } */
+            
+            
             #add{
                 background-color: green;
                 color: white;
@@ -40,42 +58,66 @@
         </style>
     </head>
     <body>
-        <h1>Auctions</h1>
-        <div>
+        <div style="display: flex; justify-content:space-between;" >
+            <div style="padding-top:0 ;" ><h1 style="color: #FD4755; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:60px; padding-top: 0; text-shadow: 3px 3px #8bc6bc; text-decoration: underline;  text-decoration-color: #F7CD46; " ><img src="{% static 'auctions/logo.png' %}" alt="" height="55px" width="55px" style="top: 0px; margin-right: 5px;" >Auctions </h1></div>
             {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-                Not signed in.
+            <!-- <div style="display: flex; width: 100%; justify-content: end;" > -->
+                <div style=" padding: 8px;background-color:#DE5935;border-radius: 8px; height: 40px; margin-top: 20px;" >
+                <span style="color:#ffffff ; display: inline; text-align: right;" >Signed in as  <span style="color: #DE5935; font-weight: bolder;background-color: #F7CD46; padding-left: 5px; padding-right: 5px; padding-top: 2px; padding-bottom: 2px; border-radius: 8px;" >&#128100; {{ user.username }}</span></span> 
+                </div>
+            <!-- </div>    -->
             {% endif %}
         </div>
+        
+        <div>
+            
+        </div>
+        <br>
+        <div style="position: relative; z-index: 1; font-family: monospace; font-weight: bold;" >
         <ul class="nav">
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#5AC3B0; border: #F7CD46 1px solid; border-radius: 13px; box-shadow: 2px 2px rgb(230, 231, 231); "  >
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+                <a style="color:#ffffff;" class="nav-link" href="{% url 'index' %}">&#127757; Active Listings</a>
             </li>
+            </div>
             {% if user.is_authenticated %}
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#5AC3B0;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'watch' %}">Watchlist</a>
+                <a class="nav-link" style="color:#ffffff;" href="{% url 'watch' %}">&#128210; Watchlist</a>
             </li>
+            </div>
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#5AC3B0;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'create' %}">Create</a>
+                <a class="nav-link" style="color:#ffffff;" href="{% url 'create' %}">&#128221; Create</a>
             </li>
+            </div>
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#5AC3B0;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'category' %}">Category</a>
+                <a class="nav-link" style="color:#ffffff;" href="{% url 'category' %}">&#128218; Category</a>
             </li>
+            </div>
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#DE5935;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    <a class="nav-link" style="color:#ffffff;" href="{% url 'logout' %}">Log Out</a>
                 </li>
+            </div>
             {% else %}
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#DE5935;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    <a class="nav-link" style="color:#ffffff;" href="{% url 'login' %}">Log In</a>
                 </li>
+                </div>
+            <div style=" margin-right: 15px; display: inline; padding:2px;background-color:#5AC3B0;border-radius: 13px;border: #F7CD46 1px solid;box-shadow: 2px 2px rgb(230, 231, 231);"  >
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    <a class="nav-link" style="color:#ffffff;" href="{% url 'register' %}">Register</a>
                 </li>
+                </div>
             {% endif %}
         </ul>
-        <hr>
+        
+    </div>
+    
         {% block body %}
         {% endblock %}
-    </body>
+        </body>
 </html>
